@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Metadata -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Page Name and Site Name -->
+    <title>Sinhala Name to Japanese</title>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+
+    <div id="container" style="position:absolute; top: 0px; left: 0px; width: 500px; padding: 10px">
+      <div>Type your name in ENGLISH here:</div>
+      <div>
+      <textarea id="source" rows="7" cols="50" style="font-size: 14px;"></textarea>
+      </div>
+      <br/>
+      <div>Here is the Japanese name:</div>
+      <div>
+      <textarea id="destination" rows="7" cols="50" style="font-size: 14px;"></textarea>  
+      </div>
+      <div>
+        <button onclick="copy_text()">Copy/Paste</button>
+        <div id="status"></div>
+      </div>
+    </div>
+    <div id="guide" style="position:absolute; top: 0px; left: 400px; width: 300px; height: 300px">
+      <img src="guide.jpg" style="width: 350px;"/>
+    </div>
+
+    <script>
+      function map_text(src_text) {
+        src_text = src_text.toLowerCase();
+        mapping = {"a": "කා",
+          "b": "සු",
+          "c": "මි",
+          "d": "ටේ",
+          "e": "කු",
+          "f": "ලු",
+          "g": "ජි",
+          "h": "රි",
+          "i": "කි",
+          "j": "සු",
+          "k": "මේ",
+          "l": "ටා",
+          "m": "රින්",
+          "n": "ටෝ",
+          "o": "මෝ",
+          "p": "නෝ",
+          "q": "කේ",
+          "r": "ශි",
+          "s": "අරි",
+          "t": "චි",
+          "u": "ඩෝ",
+          "v": "රු",
+          "w": "මෙයි",
+          "x": "නා",
+          "y": "ෆු",
+          "z": "සි"
+          };
+        dst_text = "";
+        for (var i = 0; i < src_text.length; i++) {
+          source_char = src_text.charAt(i);
+          if (source_char in mapping)
+            dst_text += mapping[source_char];
+          else 
+            dst_text += mapped_char; 
+        }
+        return dst_text;
+      }
+
+      function copy_text() {
+        var copy_text = $("#destination");
+        copy_text.select();
+        document.execCommand("copy");
+        $("#status").text("Copied the text: " + copy_text.val());
+      }
+      
+      $("#source").keyup(function(){
+        $("#destination").val(map_text($("#source").val()));
+        $("#status").text("");
+      });
+    </script>
+  </body>
+</html>
